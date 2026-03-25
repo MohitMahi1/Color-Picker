@@ -50,3 +50,16 @@ class KMeansPixelModel:
 
     def rgb_to_hex(self, r, g, b):
         return f"#{r:02x}{g:02x}{b:02x}"
+    
+    def get_palette(self):
+        if self.centers is None:
+            return []
+
+        palette = []
+        for center in self.centers:
+            r, g, b = center
+            palette.append(self.rgb_to_hex(r, g, b))
+
+        return palette
+    
+    
