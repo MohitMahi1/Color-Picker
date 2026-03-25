@@ -1,11 +1,12 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
+import io
 
 from model import KMeansPixelModel
 
 app = FastAPI()
 
-#  CORS
+# CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -14,38 +15,42 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-model = KMeansPixelModel(k=52)
+# Global model (simple version for now)
+model = KMeansPixelModel(k=5)
 
 
-#  Upload Image + Train Model (IN MEMORY)
+# Upload Image + Train Model
 @app.post("/upload")
 async def upload_image(file: UploadFile = File(...), k: int = 5):
-    # validate k
+    
+    # Validate K
     if k < 3 or k > 10:
         return {"error": "K must be between 3 and 10"}
 
-    import io
     contents = await file.read()
     file_object = io.BytesIO(contents)
 
-    # reinitialize model with new k
+    # Reinitialize model with new K
     global model
     model = KMeansPixelModel(k=k)
 
     result = model.load_and_train(file_object)
 
     return {
-        "message": "Image processed",
+        "message": "Image processed successfully",
         "k": k,
-        "palette": get_palette(),
+        "palette": model.get_palette(),  
         "details": result
     }
 
-#  Get Pixel Info
+
+# Get Pixel Info
 @app.get("/pixel")
 def get_pixel(x: int, y: int):
     return model.get_pixel_info(x, y)
 
+
+# Get Palette
 @app.get("/palette")
 def get_palette():
     return model.get_palette()

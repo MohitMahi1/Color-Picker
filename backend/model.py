@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.cluster import KMeans
 
 class KMeansPixelModel:
-    def __init__(self, k=52):
+    def __init__(self, k=5):
         self.k = k
         self.model = KMeans(n_clusters=k, random_state=42, n_init="auto")
         self.image_array = None
@@ -18,13 +18,30 @@ class KMeansPixelModel:
 
         self.image_array = np.array(image)
         self.height, self.width, _ = self.image_array.shape
-        
+
         pixels = self.image_array.reshape(-1, 3).astype(float)
 
-        self.labels = self.model.fit_predict(pixels)
+
+        if len(pixels) > 10000:
+            idx = np.random.choice(len(pixels), 10000, replace=False)
+            pixels_sample = pixels[idx]
+        else:
+            pixels_sample = pixels
+
+        # TRAIN on sample
+        self.model.fit(pixels_sample)
+
+        # PREDICT for ALL pixels
+        self.labels = self.model.predict(pixels)
+
+        # Cluster centers
         self.centers = self.model.cluster_centers_.astype(int)
 
-        return {"message": "Model trained", "clusters": self.k}
+        return {
+            "message": "Model trained",
+            "clusters": self.k,
+            "image_size": f"{self.width}x{self.height}"
+        }
 
     def get_pixel_info(self, x, y):
         if self.image_array is None:
@@ -48,18 +65,11 @@ class KMeansPixelModel:
             "cluster_color": self.rgb_to_hex(cr, cg, cb)
         }
 
-    def rgb_to_hex(self, r, g, b):
-        return f"#{r:02x}{g:02x}{b:02x}"
-    
     def get_palette(self):
         if self.centers is None:
             return []
 
-        palette = []
-        for center in self.centers:
-            r, g, b = center
-            palette.append(self.rgb_to_hex(r, g, b))
+        return [self.rgb_to_hex(r, g, b) for r, g, b in self.centers]
 
-        return palette
-    
-    
+    def rgb_to_hex(self, r, g, b):
+        return f"#{r:02x}{g:02x}{b:02x}"
