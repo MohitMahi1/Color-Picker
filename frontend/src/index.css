@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 97%;
+    --foreground: 230 25% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 230 25% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 230 25% 12%;
+
+    --primary: 43 96% 46%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 14% 92%;
+    --secondary-foreground: 230 15% 30%;
+
+    --muted: 220 14% 95%;
+    --muted-foreground: 220 10% 45%;
+
+    --accent: 200 80% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 87%;
+    --input: 220 13% 87%;
+    --ring: 43 96% 46%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 220 20% 95%;
+    --sidebar-foreground: 230 15% 30%;
+    --sidebar-primary: 43 96% 46%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 14% 92%;
+    --sidebar-accent-foreground: 230 15% 30%;
+    --sidebar-border: 220 13% 87%;
+    --sidebar-ring: 43 96% 46%;
+
+    /* Custom tokens */
+    --glass: 0 0% 100% / 0.8;
+    --glow-primary: 43 96% 46%;
+    --surface-hover: 220 14% 90%;
+    --gradient-hero: linear-gradient(135deg, hsl(43 96% 46% / 0.1), hsl(200 80% 50% / 0.06));
+    --text-dim: 220 10% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .font-mono-code {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .glass-panel {
+    @apply bg-card/70 backdrop-blur-xl border border-border rounded-xl;
+  }
+
+  .glow-amber {
+    box-shadow: 0 0 40px hsl(43 96% 46% / 0.15), 0 0 80px hsl(43 96% 46% / 0.07);
+  }
+
+  .text-gradient-primary {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(43 96% 46%), hsl(35 95% 55%));
+  }
+}
