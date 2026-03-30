@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { label: 'Tool', href: '#tool' },
-  { label: 'Why PixelLens', href: '#why' },
-  { label: 'How It Works', href: '#how' },
+  { label: "Tool", href: "#tool" },
+  { label: "Why PixelLens", href: "#why" },
+  { label: "How It Works", href: "#how" },
 ];
 
 const Header = () => {
@@ -14,9 +14,11 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 glass-panel rounded-none border-x-0 border-t-0">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         <a href="#" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">PL</span>
-          </div>
+          <img
+            src="/android-chrome-512x512.png"
+            alt="PixelLens Logo"
+            className="w-12 h-12 rounded-lg"
+          />
           <span className="text-lg font-bold text-foreground">PixelLens</span>
         </a>
 
