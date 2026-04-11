@@ -141,8 +141,8 @@ user_models = {}
 
 SESSION_TIMEOUT = 600  # 10 minutes
 
-# Max file size = 5MB
-MAX_FILE_SIZE = 5 * 1024 * 1024
+# Max file size = 1MB
+MAX_FILE_SIZE = 1 * 1024 * 1024
 
 
 # Cleanup function
@@ -184,10 +184,10 @@ async def upload_image(
     if file.content_type not in allowed_types:
         return {"error": "Invalid file type. Please upload JPEG, PNG, WEBP or GIF"}
 
-    # Validate file size (max 5MB)
+    # Validate file size (max 1MB)
     contents = await file.read()
     if len(contents) > MAX_FILE_SIZE:
-        return {"error": "File too large. Maximum size is 5MB"}
+        return {"error": "File too large. Maximum size is 1MB"}
 
     file_object = io.BytesIO(contents)
 

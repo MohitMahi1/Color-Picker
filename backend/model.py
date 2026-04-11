@@ -182,7 +182,7 @@ class KMeansPixelModel:
         self.original_width, self.original_height = image.size
 
         # Resize large images
-        max_size = 800
+        max_size = 450
         w, h = image.size
         if w > max_size or h > max_size:
             ratio = min(max_size / w, max_size / h)
