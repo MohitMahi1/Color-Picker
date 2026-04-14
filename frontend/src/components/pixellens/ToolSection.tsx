@@ -125,9 +125,9 @@ const ToolSection = ({ userId, onSessionExpired, onRetryConnection }: ToolSectio
         {!userId ? (
           <div className="max-w-md mx-auto glass-panel p-8 text-center space-y-4">
             <WifiOff size={40} className="mx-auto text-muted-foreground" />
-            <h3 className="text-lg font-semibold text-foreground">Backend Not Connected</h3>
+            <h3 className="text-lg font-semibold text-foreground">Backend Connection Take Time</h3>
             <p className="text-sm text-muted-foreground">
-              Make sure your FastAPI server is running at <code className="font-mono text-primary text-xs">localhost:8000</code>
+              The Server takes time to connect with frontend <br></br> <code className="font-mono text-primary text-xs">Due to Using Free Version of Server🥲</code>
             </p>
             <button
               onClick={onRetryConnection}
